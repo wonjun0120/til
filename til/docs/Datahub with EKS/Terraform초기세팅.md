@@ -66,7 +66,7 @@ Dynamodb를 사용한 테라폼 상태 잠금 레퍼런스입니다.
 
 레퍼런스들을 바탕으로 코드를 작성하면 아래와 같이 작성됩니다. 
 
-```bash
+```HCL
 terraform {
   backend "s3" {
     bucket         = "aib-eks-states"

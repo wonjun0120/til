@@ -249,13 +249,14 @@ elastic search의 `replicas`를 1로 변경해줍니다. 너무 많으면 파드
 
 아래 사진처럼 `Healthy` , `Synced` , `Sync OK` 가 나오면 성공한 것입니다.
 
-<img width="1522" alt="스크린샷_2022-01-11_오후_6 28 59" src="https://user-images.githubusercontent.com/38996611/149650602-23e7f3fe-6a47-44e5-b426-8765de8b96ef.png">
+![스크린샷_2022-01-11_오후_6 28 59](https://user-images.githubusercontent.com/38996611/149650602-23e7f3fe-6a47-44e5-b426-8765de8b96ef.png")
  
 만약 에러가 발생한 부분이 있다면 그 부분을 클릭하여 `EVENT` 나 `LOG` 를 확인할 수 있습니다.
 
 - prerequisites 애플리케이션 실행 사진
     
-<img width="1207" alt="스크린샷_2022-01-11_오후_6 30 42" src="https://user-images.githubusercontent.com/38996611/149650604-b5b7dc40-195b-4aa9-8cd8-197f64340954.png">
+![스크린샷_2022-01-11_오후_6 30 42](https://user-images.githubusercontent.com/38996611/149650604-b5b7dc40-195b-4aa9-8cd8-197f64340954.png")
+
 까마득하다..
     
 
@@ -293,11 +294,11 @@ URL 유지
 
 이렇게 Datahub를 EKS에 배포할 수 있습니다.
 
-<img width="1507" alt="스크린샷_2022-01-11_오후_6 34 45" src="https://user-images.githubusercontent.com/38996611/149650605-3c4ef527-d56b-4273-958e-d85edde0fd2f.png">
+![스크린샷_2022-01-11_오후_6 34 45](https://user-images.githubusercontent.com/38996611/149650605-3c4ef527-d56b-4273-958e-d85edde0fd2f.png)
 
 Argo CD의 Applications에서 각 애플리케이션의 상태를 확인할 수 있습니다.
 
-<img width="1016" alt="스크린샷_2022-01-11_오후_6 35 36" src="https://user-images.githubusercontent.com/38996611/149650608-ff81843f-032d-4608-a119-47ac36acc230.png">
+![스크린샷_2022-01-11_오후_6 35 36](https://user-images.githubusercontent.com/38996611/149650608-ff81843f-032d-4608-a119-47ac36acc230.png)
 
 Applications가 `Healthy`가 아니라면 해당 애플리케이션에 문제가 있음을 나타냅니다.
 
@@ -311,7 +312,7 @@ kubectl get svc -n datahub
 
 그럼 이것과 비슷한 결과가 나옵니다
 
-```yaml
+```bash
 NAME                               TYPE           CLUSTER-IP       EXTERNAL-IP                                                                   PORT(S)                      AGE
 datahub-datahub-frontend           LoadBalancer   172.20.249.228   a88dc81a8596b4e589ee30883a6201b1-324580445.ap-northeast-2.elb.amazonaws.com   9002:32100/TCP               18d
 datahub-datahub-gms                LoadBalancer   172.20.203.41    a9ccfa41873e240e699192dd64799476-746239269.ap-northeast-2.elb.amazonaws.com   8080:31643/TCP               18d

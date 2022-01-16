@@ -49,17 +49,14 @@ GitOps에서 요구하는 원칙들을 정리해보았습니다. (위 커피고�
 
 kubectl과 helm을 사용하여 바로 배포해도 되지만 배포 진행시 파드들이 정상적으로 실행되고 있는지, 에러가 발생하지는 않았는지 확인이 어렵습니다. 
 
-<aside>
 ❓ helm?
 쿠버네티스 클러스터에서 패키지를 관리하는 패키지 매니저입니다!
 
 [헬름 사용하기](https://helm.sh/ko/docs/intro/using_helm/)
 
-</aside>
-
 특히 EKS에서 진행하려하는 데이터 허브 배포 진행시 정말 많은 파드들이 실행되기에 현재 파드들의 상태를 더 쉽게 확인할 수 있는 방법이 필요했습니다. 
 
-<img width="752" alt="Argocd" src="https://user-images.githubusercontent.com/38996611/149650524-7c822024-5084-42cf-8275-367749732e67.png">
+![Argocd](https://user-images.githubusercontent.com/38996611/149650524-7c822024-5084-42cf-8275-367749732e67.png)
 
 실행중인 Datahub의 파드들.. 
 
@@ -71,7 +68,6 @@ EKS를 테라폼으로 생성할 때 같이 설치 될 수 있도록 Argo CD 역
 
 `argocd_module` 이라는 이름의 폴더를 만들어줍니다. 
 
-<aside>
 ✋ 테라폼 모듈에서 helm을 사용하는 경우 
 
 테라폼 모듈의 경우 내부에서 사용하는 helm의 이름과 모듈 이름이 같으면 버그가 발생합니다..  
@@ -79,7 +75,6 @@ EKS를 테라폼으로 생성할 때 같이 설치 될 수 있도록 Argo CD 역
 
 [https://github.com/hashicorp/terraform-provider-helm/issues/735](https://github.com/hashicorp/terraform-provider-helm/issues/735)
 
-</aside>
 
 이전 다른 모듈을 생성했을 때와 마찬가지로 `main.tf` `variables.tf` 파일을 생성해줍니다.
 
@@ -96,7 +91,7 @@ EKS를 테라폼으로 생성할 때 같이 설치 될 수 있도록 Argo CD 역
 
 Argo CD를 EKS에 설치하기 위해 테라폼에 쿠버네티스 공급자와 헬름 공급자를 추가합니다.
 
-```python
+```HCL
 provider "kubernetes" {
   cluster_ca_certificate = base64decode(var.kubernetes_cluster_cert_data)
   host                   = var.kubernetes_cluster_endpoint
@@ -132,7 +127,7 @@ EKS 모듈을 통해 생성한 EKS 클러스터에서 인증서 정보와 클러
 
 이렇게 작성이 완료되었으면 이제 helm으로 Argo CD를 설치할 수 있습니다.
 
-```python
+```HCL
 resource "kubernetes_namespace" "argo-ns" {
   metadata {
     name = "argocd"
@@ -178,7 +173,7 @@ Argo CD helm Github 에서 Argo CD helm 레포 주소를 확인할 수 있습니
 
 위에서 사용한 변수들을 정의합니다
 
-```python
+```HCL
 variable "aws_region" {
   description = "AWS region ID for deployment"
   type        = string
@@ -214,7 +209,7 @@ variable "eks_nodegroup_id" {
 
 `variable.tf` 파일에 선언되어있는 변수들에 값을 전부 넣어주어야합니다.
 
-```python
+```HCL
 module "argo-cd-server" {
   source = "./argocd_module"
 
@@ -244,7 +239,7 @@ terraform plan
 
 코드 테스트 후 문제가 없다는 것을 확인하였다면 apply를 해줍니다
 
-```python
+```bash
 terraform apply
 ```
 

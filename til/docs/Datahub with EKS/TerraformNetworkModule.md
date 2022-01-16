@@ -281,7 +281,7 @@ aws 인터넷 게이트웨이 공식문서
 
 [인터넷 게이트웨이](https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/VPC_Internet_Gateway.html)
 
-```bash
+```HCL
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
@@ -346,7 +346,7 @@ NAT을 생성하기 위해서는 특별한 IP 주소인 [EIP](https://docs.aws.a
 
 여기서는 2개의 EIP를 생성하여 NAT에 할당해줍니다.
 
-```bash
+```HCL
 resource "aws_eip" "nat-a" {
   vpc = true
   tags = {
@@ -390,7 +390,7 @@ resource "aws_nat_gateway" "nat-gw-b" {
 
 NAT 게이트웨이를 구성한 뒤에는 사설 서브넷(private subnet)에 대한 라우팅을 정의해줍니다.
 
-```bash
+```HCL
 esource "aws_route_table" "private-route-a" {
   vpc_id = aws_vpc.main.id
 
@@ -436,7 +436,7 @@ resource "aws_route_table_association" "private-b-association" {
 
 생성된 네트워크의 모습은 아래 사진처럼 구성되었습니다.
 
-<img width="849" alt="vpc" src="https://user-images.githubusercontent.com/38996611/149650404-5e344cc5-7cd9-4ded-8461-0e84ff3b71a5.png">
+![vpc](https://user-images.githubusercontent.com/38996611/149650404-5e344cc5-7cd9-4ded-8461-0e84ff3b71a5.png)
 
 ### `variable.tf`
 
@@ -542,7 +542,6 @@ terraform apply
 ```
 
 테라폼이 실행된 후 VPC가 성공적으로 생성되었는지 테스트할 수 있습니다.
-
 ```bash
 aws ec2 describe-vpcs --filters Name=cidr,Values=10.10.0.0/16
 ```

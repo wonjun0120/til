@@ -30,14 +30,12 @@ EKS를 사용하면 쿠버네티스의 설치부터, 운영을 EKS가 대신 해
 
 쿠버네티스의 구현은 매우 복잡하며, 가능한 빠르게 시스템을 설정하고 실행하기 위해서 EKS를 사용합니다.
 
-<aside>
 ❓ 쿠버네티스?
 
 [쿠버네티스란 무엇인가?](https://kubernetes.io/ko/docs/concepts/overview/what-is-kubernetes/)
 
 > 예를 들어 컨테이너가 다운되면 다른 컨테이너를 다시 시작해야 한다. 이 문제를 시스템에 의해 처리한다면 더 쉽지 않을까? 그것이 쿠버네티스가 필요한 이유이다! **쿠버네티스는 분산 시스템을 탄력적으로 실행하기 위한 프레임 워크를 제공한다**. 애플리케이션의 확장과 장애 조치를 처리하고, 배포 패턴 등을 제공한다. 예를 들어, 쿠버네티스는 시스템의 카나리아 배포를 쉽게 관리 할 수 있다.
 > 
-</aside>
 
 ### 모듈 생성
 
@@ -58,7 +56,7 @@ EKS역시 테라폼으로 관리할 예정이기에 EKS에 관련된 테라폼 �
 > EKS 모듈이 제공하는 출력 변수를 선언하는 파일입니다.
 > 
 
-```python
+```HCL
 output "eks_cluster_id" {
   value = aws_eks_cluster.aib-cluster.id
 }
@@ -97,7 +95,7 @@ EKS 모듈을 통해 생성한 EKS 정보들을 반환할 수 있도록 구성�
 > EKS 클러스터가 정의되어있는 파일입니다.
 > 
 
-```python
+```HCL
 provider "aws" {
   region = var.aws_region
 }
@@ -109,7 +107,7 @@ AWS의 EKS를 사용하므로 AWS 공급자를 정의합니다.
 
 모듈이 호출될 때 리전 정보를 받아올 수 있도록 하였습니다. 외부에서 여러 모듈을 실행하는 경우 서로 같은 리전에서 실행될 수 있도록 하며, 유지보수성을 높일 수 있습니다. 
 
-```python
+```HCL
 resource "aws_iam_role" "cluster" {
   name = var.cluster_name
 
@@ -151,7 +149,7 @@ EKS를 실행하려면 AWS 리소스를 생성하고 수정할 수 있는 권한
 
 클러스터 서비스의 역할과 정책을 정의하였으므로, 다음에는 클러스터에 대한 네트워크 보안 정책을 정의합니다.
 
-```python
+```HCL
 resource "aws_security_group" "cluster" {
   name        = var.cluster_name
   description = "Cluster communication with worker nodes"
@@ -217,7 +215,7 @@ resource "aws_eks_cluster" "aib-cluster" {
 
 노드 생성에 사용할 역할을 먼저 생성해줍니다.
 
-```python
+```HCL
 resource "aws_iam_role" "node" {
   name = "${var.cluster_name}.node"
 
@@ -267,7 +265,7 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
 
 정책 생성후 EKS 노드 그룹을 정의할 수 있습니다.
 
-```python
+```HCL
 resource "aws_eks_node_group" "node-group" {
   cluster_name    = aws_eks_cluster.aib-cluster.name
   node_group_name = "aib-eks"
@@ -379,7 +377,7 @@ users:
 > 위 `main.tf` 파일에서 사용한 변수들을 여기서 정의합니다.
 > 
 
-```python
+```HCL
 variable "aws_region" {
   description = "AWS region ID for deployment (e.g. ap-northeast-2)"
   type        = string
@@ -438,7 +436,7 @@ EKS 모듈을 구성했다면 이제 외부에서 사용해야합니다.
 
 `variable.tf` 파일에 선언되어있는 변수들에 값을 전부 넣어주어야합니다.
 
-```python
+```HCL
 module "aws-kubernetes-cluster" {
   source = "./eks_module"
 
@@ -476,12 +474,12 @@ terraform plan
 
 코드 테스트 후 문제가 없다는 것을 확인하였다면 apply를 해줍니다
 
-```python
+```bash
 terraform apply
 ```
 
 테라폼이 실행된 후 클러스터가 정상적으로 생성되었는지 확인해볼 수 있습니다.
 
-```python
+```bash
 aws eks list-clusters
 ```
