@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktil=self.webpackChunktil||[]).push([[773],{900:function(l){l.exports=JSON.parse('{"allTagsPath":"/til/blog/tags","slug":"/til/blog/tags/hello","name":"hello","count":2,"permalink":"/til/blog/tags/hello"}')}}]);
