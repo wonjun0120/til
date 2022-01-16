@@ -1,11 +1,19 @@
 ---
 slug: welcome
 title: Welcome
-authors: [slorber, yangshun]
-tags: [facebook, hello, docusaurus]
+authors: wonjun
+tags: [hello, blog, etc]
 ---
 
-[Docusaurus blogging features](https://docusaurus.io/docs/blog) are powered by the [blog plugin](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog).
+### 안녕하세요! 
+
+블로그 첫 번째 글입니다! 
+
+해당 글을 통해서 블로그 글을 생성할 수 있습니다!
+
+아래 내용을 확인하여 블로그 작성에 참고해주세요! :D
+
+### Blog
 
 Simply add Markdown files (or folders) to the `blog` directory.
 
